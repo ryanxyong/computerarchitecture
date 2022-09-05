@@ -1,0 +1,13 @@
+Ryan Yong
+CS51 - HW8
+
+Question 1.
+Part D.
+When the program runs the given privdemo-F21 test file, the program moves the address for the beginning of hello_from_boot ("Hi! ") into register edx and calls printstring. printstring simply goes through what's in register edx and prints out the string into the display through the IO. Afterwards, the program returns to sysexit, which sets the privilege mode to 1, user mode. Then, the program jumps to unpriv, in which we then do sysenter, which resets the privilege mode to 0, privileged mode, and calls the trap at 0x100. This trap moves the address for the beginning of hello_from_os ("Yes? ") and calls printstring, which prints out "Yes? " to the display. Afterwards, the program does sysexit, setting privilege mode to 1, user mode, and returns to nop. After that nop, another nop goes through and then we get a bogus instruction that the user is unable to run. Accordingly, this sets off the exception line (an invalid instruction was trying to be ran in user mode) and calls the exception handler at 0x200. Here, the program moves the address for the beginning of error ("Uh-oh! ") and calls printstring, which prints out "Uh-oh! " to the display. Afterwards, the program returns to nop and then proceeds to halt and stops after running halt.
+
+When the program runs the given privdemo-F21 test file, the output shows "Hi! Yes? Uh-oh! "
+
+Along with testing done in Part D, I also used my trustedCodeFailTest file to make sure that the program properly halts when in privileged mode and encountering a bad instruction, my sysexitTest to make sure that the program properly enters user mode after using sysexit, and my sysenterTest to make sure that the program properly calls 0x100 and goes into privileged mode and can move in and out of privileged mode by using sysexit and sysenter as necessary.
+
+Question 2.
+Testing in circuit file.

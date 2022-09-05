@@ -1,0 +1,8 @@
+.pos 0
+irmovl stack, %esp
+
+sysexit
+
+.pos 0xFFFF0100
+stack:
+  .long 0xFFFFFFFF

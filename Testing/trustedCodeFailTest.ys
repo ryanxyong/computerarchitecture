@@ -1,0 +1,11 @@
+# used to test whether or not the program halts as it should when running an
+# invalid instruction in privileged mode
+
+.pos 0
+irmovl stack, %esp
+
+.byte 0xEE
+
+.pos 0x100
+stack:
+  .long 0xFFFFFFFF

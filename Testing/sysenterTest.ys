@@ -1,0 +1,23 @@
+.pos 0
+irmovl stack, %esp
+
+sysexit
+
+irmovl 0x12345678, %ecx
+
+sysenter
+
+irmovl 0xffffffff, %ebx
+
+halt
+
+.pos 0x100
+irmovl 0xf0c0f00d, %eax
+
+sysexit
+
+ret
+
+.pos 0xFFFF0100
+stack:
+  .long 0xFFFFFFFF
